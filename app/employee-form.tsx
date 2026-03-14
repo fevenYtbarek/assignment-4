@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const EmployeeSchema = Yup.object().shape({
   fullName: Yup.string()
