@@ -1,3 +1,4 @@
+import React from "react";
 import {
   View,
   Text,
@@ -6,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -33,8 +35,9 @@ export default function EmployeeForm() {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Employee Information Form</Text>
+
         <Text style={styles.subtitle}>
-          Please fill in the employee details below.
+          Fill in the employee details below
         </Text>
 
         <Formik
@@ -46,10 +49,16 @@ export default function EmployeeForm() {
             employeeId: "",
           }}
           validationSchema={EmployeeSchema}
+          validateOnMount
           onSubmit={(values, { resetForm }) => {
-            console.log("SUBMITTED");
             console.log(values);
-            window.alert("Employee submitted successfully!");
+
+            Alert.alert(
+              "Success",
+              "Employee form submitted successfully!",
+              [{ text: "OK" }]
+            );
+
             resetForm();
           }}
         >
@@ -63,79 +72,88 @@ export default function EmployeeForm() {
             isValid,
           }) => (
             <View>
+              {/* Full Name */}
               <Text style={styles.label}>Full Name</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Enter full name"
-                placeholderTextColor="#9ca3af"
+                placeholderTextColor="#94a3b8"
                 onChangeText={handleChange("fullName")}
                 onBlur={handleBlur("fullName")}
                 value={values.fullName}
               />
-              {touched.fullName && errors.fullName ? (
-                <Text style={styles.error}>{errors.fullName}</Text>
-              ) : null}
 
+              {touched.fullName && errors.fullName && (
+                <Text style={styles.error}>{errors.fullName}</Text>
+              )}
+
+              {/* Email */}
               <Text style={styles.label}>Email</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Enter email"
-                placeholderTextColor="#9ca3af"
+                placeholderTextColor="#94a3b8"
+                keyboardType="email-address"
+                autoCapitalize="none"
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
-                keyboardType="email-address"
-                autoCapitalize="none"
               />
-              {touched.email && errors.email ? (
-                <Text style={styles.error}>{errors.email}</Text>
-              ) : null}
 
+              {touched.email && errors.email && (
+                <Text style={styles.error}>{errors.email}</Text>
+              )}
+
+              {/* Phone */}
               <Text style={styles.label}>Phone Number</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Enter phone number"
-                placeholderTextColor="#9ca3af"
+                placeholderTextColor="#94a3b8"
+                keyboardType="phone-pad"
                 onChangeText={handleChange("phone")}
                 onBlur={handleBlur("phone")}
                 value={values.phone}
-                keyboardType="phone-pad"
               />
-              {touched.phone && errors.phone ? (
-                <Text style={styles.error}>{errors.phone}</Text>
-              ) : null}
 
+              {touched.phone && errors.phone && (
+                <Text style={styles.error}>{errors.phone}</Text>
+              )}
+
+              {/* Department */}
               <Text style={styles.label}>Department</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Enter department"
-                placeholderTextColor="#9ca3af"
+                placeholderTextColor="#94a3b8"
                 onChangeText={handleChange("department")}
                 onBlur={handleBlur("department")}
                 value={values.department}
               />
-              {touched.department && errors.department ? (
-                <Text style={styles.error}>{errors.department}</Text>
-              ) : null}
 
+              {touched.department && errors.department && (
+                <Text style={styles.error}>{errors.department}</Text>
+              )}
+
+              {/* Employee ID */}
               <Text style={styles.label}>Employee ID</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Enter employee ID"
-                placeholderTextColor="#9ca3af"
+                placeholderTextColor="#94a3b8"
                 onChangeText={handleChange("employeeId")}
                 onBlur={handleBlur("employeeId")}
                 value={values.employeeId}
               />
-              {touched.employeeId && errors.employeeId ? (
-                <Text style={styles.error}>{errors.employeeId}</Text>
-              ) : null}
 
+              {touched.employeeId && errors.employeeId && (
+                <Text style={styles.error}>{errors.employeeId}</Text>
+              )}
+
+              {/* Submit Button */}
               <TouchableOpacity
                 style={[styles.button, !isValid && styles.disabled]}
-                onPress={() => {
-                  handleSubmit();
-                }}
+                onPress={() => handleSubmit()}
                 disabled={!isValid}
               >
                 <Text style={styles.buttonText}>Submit</Text>
@@ -151,7 +169,7 @@ export default function EmployeeForm() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#f8fafc",
+    backgroundColor: "#071633",
   },
 
   container: {
@@ -160,56 +178,56 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 26,
+    fontSize: 28,
     fontWeight: "bold",
-    marginBottom: 8,
-    color: "#111827",
+    marginBottom: 6,
+    color: "#ffffff",
   },
 
   subtitle: {
-    fontSize: 14,
-    color: "#6b7280",
-    marginBottom: 20,
+    fontSize: 15,
+    color: "#94a3b8",
+    marginBottom: 25,
   },
 
   label: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: "600",
-    marginBottom: 6,
-    color: "#1f2937",
+    marginBottom: 8,
+    color: "#ffffff",
   },
 
   input: {
     borderWidth: 1,
-    borderColor: "#d1d5db",
-    backgroundColor: "#ffffff",
+    borderColor: "#334155",
+    backgroundColor: "#1e2d4a",
     padding: 14,
-    borderRadius: 10,
+    borderRadius: 12,
     marginBottom: 10,
     fontSize: 15,
-    color: "#111827",
+    color: "#ffffff",
   },
 
   error: {
-    color: "#ef4444",
-    marginBottom: 10,
+    color: "#f87171",
+    marginBottom: 12,
     fontSize: 13,
   },
 
   button: {
     backgroundColor: "#4f46e5",
-    padding: 14,
-    borderRadius: 10,
+    padding: 16,
+    borderRadius: 12,
     alignItems: "center",
-    marginTop: 8,
+    marginTop: 12,
   },
 
   disabled: {
-    backgroundColor: "#9ca3af",
+    backgroundColor: "#6b7280",
   },
 
   buttonText: {
-    color: "white",
+    color: "#ffffff",
     fontWeight: "bold",
     fontSize: 16,
   },
