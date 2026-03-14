@@ -127,37 +127,45 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#0F172A",
   },
+
   scroll: {
     padding: 24,
   },
+
   header: {
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
     marginBottom: 4,
   },
+
   title: {
     fontSize: 28,
     fontWeight: "700",
     color: "#F8FAFC",
   },
+
   subtitle: {
     fontSize: 15,
     color: "#64748B",
     marginBottom: 32,
     marginLeft: 35
   },
+
   form: {
     gap: 20,
   },
+
   field: {
     gap: 6,
   },
+
   label: {
     fontSize: 14,
     fontWeight: "600",
     color: "#CBD5E1",
   },
+
   input: {
     backgroundColor: "#1E293B",
     borderRadius: 10,
@@ -167,13 +175,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#334155",
   },
+
   inputError: {
     borderColor: "#EF4444",
   },
+
   error: {
     color: "#EF4444",
     fontSize: 12,
   },
+
   button: {
     backgroundColor: "#6366F1",
     padding: 16,
@@ -181,9 +192,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 8,
   },
+
   buttonDisabled: {
     opacity: 0.5,
   },
+
   buttonText: {
     color: "#FFFFFF",
     fontSize: 16,
@@ -196,6 +209,7 @@ signUp: {
   fontSize: 16,
   marginTop: 16,
 },
+
 link: {
   color: "#6366F1",
   fontWeight: "600",
