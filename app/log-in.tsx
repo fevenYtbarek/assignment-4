@@ -15,110 +15,114 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as Yup from "yup";
 
 const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-        .email("Enter a valid email")
-        .required("Email is required"),
-    password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .required("Password is required"),
+  email: Yup.string()
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
 });
 
 export default function Login() {
-    const router = useRouter();
+  const router = useRouter();
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scroll}>
-                <View style={styles.header}>
-                    <Pressable onPress={() => router.back()}>
-                <   Ionicons name="arrow-back" size={24} color="#F8FAFC" />
-                    </Pressable>
-                    <Text style={styles.title}>Welcome Back</Text>
-                </View>
-                <Text style={styles.subtitle}>Log in to your account</Text>
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scroll}>
+        <View style={styles.header}>
+          <Pressable onPress={() => router.push("/")}>
+            <Ionicons name="arrow-back" size={24} color="#F8FAFC" />
+          </Pressable>
+          <Text style={styles.title}>Welcome Back</Text>
+        </View>
+        <Text style={styles.subtitle}>Log in to your account</Text>
 
-                <Formik
-                initialValues={{
-                    email: "",
-                    password: "",
-                }}
-                validationSchema={LoginSchema}
-                onSubmit={(values, { resetForm }) => {
-                    Alert.alert("Success", "Logged in successfully!");
-                    console.log(values);
-                    resetForm();
-                }}
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={LoginSchema}
+          onSubmit={(values, { resetForm }) => {
+            Alert.alert("Success", "Logged in successfully!");
+            console.log(values);
+            resetForm();
+          }}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+            isValid,
+            dirty,
+          }) => (
+            <View style={styles.form}>
+              <View style={styles.field}>
+                <Text style={styles.label}>Email</Text>
+                <TextInput
+                  style={[
+                    styles.input,
+                    touched.email && errors.email && styles.inputError,
+                  ]}
+                  placeholder="you@example.com"
+                  placeholderTextColor="#64748B"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  value={values.email}
+                />
+                {touched.email && errors.email && (
+                  <Text style={styles.error}>{errors.email}</Text>
+                )}
+              </View>
+
+              <View style={styles.field}>
+                <Text style={styles.label}>Password</Text>
+                <TextInput
+                  style={[
+                    styles.input,
+                    touched.password && errors.password && styles.inputError,
+                  ]}
+                  placeholder="At least 6 characters"
+                  placeholderTextColor="#64748B"
+                  secureTextEntry
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                />
+                {touched.password && errors.password && (
+                  <Text style={styles.error}>{errors.password}</Text>
+                )}
+              </View>
+
+              <Pressable
+                style={[
+                  styles.button,
+                  !(isValid && dirty) && styles.buttonDisabled,
+                ]}
+                onPress={() => handleSubmit()}
+                disabled={!(isValid && dirty)}
+              >
+                <Text style={styles.buttonText}>Log In</Text>
+              </Pressable>
+              <Text style={styles.signUp}>
+                Not yet a member?{" "}
+                <Text
+                  style={styles.link}
+                  onPress={() => router.push("/sign-up")}
                 >
-            {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-                isValid,
-                dirty,
-            }) => (
-                <View style={styles.form}>
-                <View style={styles.field}>
-                    <Text style={styles.label}>Email</Text>
-                    <TextInput
-                    style={[
-                        styles.input,
-                        touched.email && errors.email && styles.inputError,
-                    ]}
-                    placeholder="you@example.com"
-                    placeholderTextColor="#64748B"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    onChangeText={handleChange("email")}
-                    onBlur={handleBlur("email")}
-                    value={values.email}
-                    />
-                    {touched.email && errors.email && (
-                    <Text style={styles.error}>{errors.email}</Text>
-                    )}
-                </View>
-
-                <View style={styles.field}>
-                    <Text style={styles.label}>Password</Text>
-                    <TextInput
-                    style={[
-                        styles.input,
-                        touched.password && errors.password && styles.inputError,
-                    ]}
-                    placeholder="At least 6 characters"
-                    placeholderTextColor="#64748B"
-                    secureTextEntry
-                    onChangeText={handleChange("password")}
-                    onBlur={handleBlur("password")}
-                    value={values.password}
-                    />
-                    {touched.password && errors.password && (
-                    <Text style={styles.error}>{errors.password}</Text>
-                    )}
-                </View>
-
-                <Pressable
-                    style={[
-                    styles.button,
-                    !(isValid && dirty) && styles.buttonDisabled,
-                    ]}
-                    onPress={() => handleSubmit()}
-                    disabled={!(isValid && dirty)}
-                >
-                    <Text style={styles.buttonText}>Log In</Text>
-                    
-                </Pressable>
-                <Text style={styles.signUp}>Not yet a member?{" "}
-                    <Text style={styles.link} onPress={() => router.push("/sign-up")}>Sign Up!</Text>
+                  Sign Up!
                 </Text>
-
-                </View>
-            )}
-                </Formik>
-            </ScrollView>
-        </SafeAreaView>
+              </Text>
+            </View>
+          )}
+        </Formik>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -149,7 +153,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#64748B",
     marginBottom: 32,
-    marginLeft: 35
+    marginLeft: 35,
   },
 
   form: {
@@ -203,16 +207,15 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 
-signUp: {
-  textAlign: "center",
-  color: "#64748B",
-  fontSize: 16,
-  marginTop: 16,
-},
+  signUp: {
+    textAlign: "center",
+    color: "#64748B",
+    fontSize: 16,
+    marginTop: 5,
+  },
 
-link: {
-  color: "#6366F1",
-  fontWeight: "600",
-},
-
+  link: {
+    color: "#6366F1",
+    fontWeight: "600",
+  },
 });

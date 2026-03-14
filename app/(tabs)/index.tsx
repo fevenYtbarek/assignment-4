@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, Image, Linking } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
@@ -8,6 +8,9 @@ export default function Index() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.view}>
+        <Pressable onPress={() => Linking.openURL("https://youtu.be/dQw4w9WgXcQ?si=kowRuyEeopJanuqr")}>
+          <Image source={require("../../assets/images/rickroll.jpg")}style={styles.rick}/>
+        </Pressable>
         <Pressable
           style={styles.employeeBtn}
           onPress={() => router.push("/employee-form")}
@@ -42,6 +45,14 @@ const styles = StyleSheet.create({
     padding: 24,
     justifyContent: "center",
     gap: 25,
+  },
+
+  rick: {
+    width: 450,
+    height: 300,
+    marginBottom: 50,
+    borderWidth: 3,
+    borderColor: "#EA580C",
   },
 
   employeeBtn: {

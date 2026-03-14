@@ -39,7 +39,7 @@ export default function Signup() {
     <SafeAreaView style={styles.container}>
         <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.header}>
-            <Pressable onPress={() => router.back()}>
+            <Pressable onPress={() => router.push("/")}>
             <Ionicons name="arrow-back" size={24} color="#F8FAFC" />
             </Pressable>
             <Text style={styles.title}>Create Account</Text>
@@ -181,6 +181,9 @@ export default function Signup() {
                 >
                 <Text style={styles.buttonText}>Sign Up</Text>
                 </Pressable>
+                <Text style={styles.logIn}>Already a member?{" "}
+                    <Text style={styles.link} onPress={() => router.push("/log-in")}>Login!</Text>
+                </Text>
             </View>
             )}
         </Formik>
@@ -275,4 +278,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
   },
+
+  logIn: {
+  textAlign: "center",
+  color: "#64748B",
+  fontSize: 16,
+  marginTop: 5,
+},
+
+ link: {
+  color: "#6366F1",
+  fontWeight: "600",
+},
 });
