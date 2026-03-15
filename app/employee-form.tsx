@@ -6,12 +6,14 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
   Alert,
+  Pressable,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
 const EmployeeSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -32,10 +34,15 @@ const EmployeeSchema = Yup.object().shape({
 });
 
 export default function EmployeeForm() {
+  const router= useRouter();
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.header}><Pressable onPress={() => router.push("/")}>
+                <Ionicons name="arrow-back" size={24} color="#F8FAFC"/>
+        </Pressable>
         <Text style={styles.title}>Employee Information Form</Text>
+        </View>
 
         <Text style={styles.subtitle}>
           Fill in the employee details below
@@ -170,7 +177,14 @@ export default function EmployeeForm() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#071633",
+    backgroundColor: "#0F172A",
+  },
+
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    marginBottom: 4,
   },
 
   container: {
