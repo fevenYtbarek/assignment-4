@@ -177,7 +177,7 @@ export default function EmployeeForm() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#071633",
+    backgroundColor: "#0F172A",
   },
 
   header: {
